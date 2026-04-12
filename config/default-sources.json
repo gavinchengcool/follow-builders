@@ -2,33 +2,53 @@
   "podcasts": [
     {
       "name": "Latent Space",
-      "rssUrl": "https://pod2txt.vercel.app/api/feed?url=https://api.substack.com/feed/podcast/1084089.rss",
-      "url": "https://www.youtube.com/@LatentSpacePod"
+      "type": "youtube_channel",
+      "url": "https://www.youtube.com/@LatentSpacePod",
+      "channelHandle": "LatentSpacePod"
     },
     {
       "name": "Training Data",
-      "rssUrl": "https://feeds.megaphone.fm/trainingdata",
-      "url": "https://www.youtube.com/playlist?list=PLOhHNjZItNnMm5tdW61JpnyxeYH5NDDx8"
+      "type": "youtube_playlist",
+      "url": "https://www.youtube.com/playlist?list=PLOhHNjZItNnMm5tdW61JpnyxeYH5NDDx8",
+      "playlistId": "PLOhHNjZItNnMm5tdW61JpnyxeYH5NDDx8"
     },
     {
       "name": "No Priors",
-      "rssUrl": "https://feeds.megaphone.fm/nopriors",
-      "url": "https://www.youtube.com/@NoPriorsPodcast"
+      "type": "youtube_channel",
+      "url": "https://www.youtube.com/@NoPriorsPodcast",
+      "channelHandle": "NoPriorsPodcast"
     },
     {
       "name": "Unsupervised Learning",
-      "rssUrl": "https://feeds.simplecast.com/dOSE_bdP",
-      "url": "https://www.youtube.com/@RedpointAI"
+      "type": "youtube_channel",
+      "url": "https://www.youtube.com/@RedpointAI",
+      "channelHandle": "RedpointAI"
     },
     {
-      "name": "The MAD Podcast with Matt Turck",
-      "rssUrl": "https://anchor.fm/s/f2ee4948/podcast/rss",
-      "url": "https://www.youtube.com/@DataDrivenNYC/videos"
+      "name": "Data Driven NYC",
+      "type": "youtube_channel",
+      "url": "https://www.youtube.com/@DataDrivenNYC/videos",
+      "channelHandle": "DataDrivenNYC"
     },
     {
       "name": "AI & I by Every",
-      "rssUrl": "https://anchor.fm/s/ed1f5584/podcast/rss",
-      "url": "https://www.youtube.com/playlist?list=PLuMcoKK9mKgHtW_o9h5sGO2vXrffKHwJL"
+      "type": "youtube_playlist",
+      "url": "https://www.youtube.com/playlist?list=PLuMcoKK9mKgHtW_o9h5sGO2vXrffKHwJL",
+      "playlistId": "PLuMcoKK9mKgHtW_o9h5sGO2vXrffKHwJL"
+    },
+    {
+      "name": "Builders Unscripted",
+      "type": "youtube_channel",
+      "url": "https://www.youtube.com/@OpenAI/videos",
+      "channelHandle": "OpenAI",
+      "titleIncludes": ["Builders Unscripted"],
+      "scanLimit": 12
+    },
+    {
+      "name": "Lenny's Podcast",
+      "type": "youtube_channel",
+      "url": "https://www.youtube.com/@LennysPodcast/videos",
+      "channelHandle": "LennysPodcast"
     }
   ],
   "blogs": [
@@ -72,6 +92,7 @@
     { "name": "Dan Shipper", "handle": "danshipper" },
     { "name": "Aditya Agarwal", "handle": "adityaag" },
     { "name": "Sam Altman", "handle": "sama" },
-    { "name": "Claude", "handle": "claudeai" }
+    { "name": "Claude", "handle": "claudeai" },
+    { "name": "Freda Duan", "handle": "fredaduan" }
   ]
 }

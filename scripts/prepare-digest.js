@@ -26,11 +26,13 @@ import { homedir } from 'os';
 const USER_DIR = join(homedir(), '.follow-builders');
 const CONFIG_PATH = join(USER_DIR, 'config.json');
 
-const FEED_X_URL = 'https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-x.json';
-const FEED_PODCASTS_URL = 'https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-podcasts.json';
-const FEED_BLOGS_URL = 'https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-blogs.json';
+const DEFAULT_REMOTE_BASE = 'https://raw.githubusercontent.com/zarazhangrui/follow-builders/main';
 
-const PROMPTS_BASE = 'https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/prompts';
+const FEED_X_URL = '/feed-x.json';
+const FEED_PODCASTS_URL = '/feed-podcasts.json';
+const FEED_BLOGS_URL = '/feed-blogs.json';
+
+const PROMPTS_BASE = '/prompts';
 const PROMPT_FILES = [
   'summarize-podcast.md',
   'summarize-tweets.md',
@@ -53,6 +55,15 @@ async function fetchText(url) {
   return res.text();
 }
 
+function normalizeBaseUrl(value) {
+  if (!value || typeof value !== 'string') return DEFAULT_REMOTE_BASE;
+  return value.endsWith('/') ? value.slice(0, -1) : value;
+}
+
+function buildRemoteUrl(baseUrl, path) {
+  return `${baseUrl}${path}`;
+}
+
 // -- Main --------------------------------------------------------------------
 
 async function main() {
@@ -72,11 +83,15 @@ async function main() {
     }
   }
 
+  const remoteBaseUrl = normalizeBaseUrl(
+    config.feedBaseUrl || process.env.FOLLOW_BUILDERS_FEED_BASE_URL || DEFAULT_REMOTE_BASE
+  );
+
   // 2. Fetch all three feeds
   const [feedX, feedPodcasts, feedBlogs] = await Promise.all([
-    fetchJSON(FEED_X_URL),
-    fetchJSON(FEED_PODCASTS_URL),
-    fetchJSON(FEED_BLOGS_URL)
+    fetchJSON(buildRemoteUrl(remoteBaseUrl, FEED_X_URL)),
+    fetchJSON(buildRemoteUrl(remoteBaseUrl, FEED_PODCASTS_URL)),
+    fetchJSON(buildRemoteUrl(remoteBaseUrl, FEED_BLOGS_URL))
   ]);
 
   if (!feedX) errors.push('Could not fetch tweet feed');
@@ -106,7 +121,7 @@ async function main() {
     }
 
     // Priority 2: latest from GitHub (central updates)
-    const remote = await fetchText(`${PROMPTS_BASE}/${filename}`);
+    const remote = await fetchText(buildRemoteUrl(remoteBaseUrl, `${PROMPTS_BASE}/${filename}`));
     if (remote) {
       prompts[key] = remote;
       continue;
@@ -129,7 +144,8 @@ async function main() {
     config: {
       language: config.language || 'en',
       frequency: config.frequency || 'daily',
-      delivery: config.delivery || { method: 'stdout' }
+      delivery: config.delivery || { method: 'stdout' },
+      feedBaseUrl: remoteBaseUrl
     },
 
     // Content to remix
