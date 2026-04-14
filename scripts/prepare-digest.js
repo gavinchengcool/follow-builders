@@ -4,7 +4,7 @@
 // Follow Builders — Prepare Digest
 // ============================================================================
 // Gathers everything the LLM needs to produce a digest:
-// - Fetches the central feeds (tweets + podcasts)
+// - Fetches the central feeds (tweets + blogs)
 // - Fetches the latest prompts from GitHub
 // - Reads the user's config (language, delivery method)
 // - Outputs a single JSON blob to stdout
@@ -29,12 +29,10 @@ const CONFIG_PATH = join(USER_DIR, 'config.json');
 const DEFAULT_REMOTE_BASE = 'https://raw.githubusercontent.com/zarazhangrui/follow-builders/main';
 
 const FEED_X_URL = '/feed-x.json';
-const FEED_PODCASTS_URL = '/feed-podcasts.json';
 const FEED_BLOGS_URL = '/feed-blogs.json';
 
 const PROMPTS_BASE = '/prompts';
 const PROMPT_FILES = [
-  'summarize-podcast.md',
   'summarize-tweets.md',
   'summarize-blogs.md',
   'digest-intro.md',
@@ -87,15 +85,13 @@ async function main() {
     config.feedBaseUrl || process.env.FOLLOW_BUILDERS_FEED_BASE_URL || DEFAULT_REMOTE_BASE
   );
 
-  // 2. Fetch all three feeds
-  const [feedX, feedPodcasts, feedBlogs] = await Promise.all([
+  // 2. Fetch both feeds
+  const [feedX, feedBlogs] = await Promise.all([
     fetchJSON(buildRemoteUrl(remoteBaseUrl, FEED_X_URL)),
-    fetchJSON(buildRemoteUrl(remoteBaseUrl, FEED_PODCASTS_URL)),
     fetchJSON(buildRemoteUrl(remoteBaseUrl, FEED_BLOGS_URL))
   ]);
 
   if (!feedX) errors.push('Could not fetch tweet feed');
-  if (!feedPodcasts) errors.push('Could not fetch podcast feed');
   if (!feedBlogs) errors.push('Could not fetch blog feed');
 
   // 3. Load prompts with priority: user custom > remote (GitHub) > local default
@@ -149,17 +145,15 @@ async function main() {
     },
 
     // Content to remix
-    podcasts: feedPodcasts?.podcasts || [],
     x: feedX?.x || [],
     blogs: feedBlogs?.blogs || [],
 
     // Stats for the LLM to reference
     stats: {
-      podcastEpisodes: feedPodcasts?.podcasts?.length || 0,
       xBuilders: feedX?.x?.length || 0,
       totalTweets: (feedX?.x || []).reduce((sum, a) => sum + a.tweets.length, 0),
       blogPosts: feedBlogs?.blogs?.length || 0,
-      feedGeneratedAt: feedX?.generatedAt || feedPodcasts?.generatedAt || feedBlogs?.generatedAt || null
+      feedGeneratedAt: feedX?.generatedAt || feedBlogs?.generatedAt || null
     },
 
     // Prompts — the LLM reads these and follows the instructions

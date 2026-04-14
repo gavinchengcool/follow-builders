@@ -2,7 +2,7 @@ name: Generate Feeds
 
 on:
   schedule:
-    # All feeds (tweets, podcasts, blogs): once daily at 6am UTC
+    # All feeds (tweets, blogs): once daily at 6am UTC
     - cron: '0 6 * * *'
   workflow_dispatch:
     inputs:
@@ -14,7 +14,6 @@ on:
         options:
           - all
           - tweets-only
-          - podcasts-only
           - blogs-only
 
 jobs:
@@ -36,7 +35,6 @@ jobs:
       - name: Generate feeds
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
-          POD2TXT_API_KEY: ${{ secrets.POD2TXT_API_KEY }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.mode }}" != "all" ]; then
             cd scripts && node generate-feed.js --${{ inputs.mode }}
@@ -48,6 +46,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add feed-x.json feed-podcasts.json feed-blogs.json state-feed.json
+          git add feed-x.json feed-blogs.json state-feed.json
           git diff --cached --quiet || git commit -m "chore: update feeds [skip ci]"
           git push

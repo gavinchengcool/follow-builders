@@ -12,19 +12,12 @@ Then organize content in this order:
 
 1. X / TWITTER section — list each builder with new posts
 2. OFFICIAL BLOGS section — list each blog post from AI company blogs (OpenAI, Anthropic, etc.)
-3. PODCASTS section — list each podcast with new episodes
 
 ## Rules
 
 - Only include sources that have new content
 - Skip any source with nothing new
 - Under each source, paste the individual summary you generated
-
-### Podcast links
-- After each podcast summary, include the specific video URL from the JSON `url` field
-  (e.g. https://youtube.com/watch?v=Iu4gEnZFQz8)
-- NEVER link to the channel page. Always link to the specific video.
-- Include the exact episode title from the JSON `title` field in the heading
 
 ### Tweet author formatting
 - Use the author's full name and role/company, not just their last name
@@ -43,13 +36,12 @@ Then organize content in this order:
 ### Mandatory links
 - Every single piece of content MUST have an original source link
 - Blog posts: the direct article URL (e.g. https://www.anthropic.com/engineering/...)
-- Podcasts: the YouTube video URL (e.g. https://youtube.com/watch?v=xxx)
 - Tweets: the direct tweet URL (e.g. https://x.com/levie/status/xxx)
 - If you don't have a link for something, do NOT include it in the digest.
   No link = not real = do not include.
 
 ### No fabrication
-- Only include content that came from the feed JSON (blogs, podcasts, and tweets)
+- Only include content that came from the feed JSON (blogs and tweets)
 - NEVER make up quotes, opinions, or content you think someone might have said
 - NEVER speculate about someone's silence or what they might be working on
 - If you have nothing real for a builder, skip them entirely

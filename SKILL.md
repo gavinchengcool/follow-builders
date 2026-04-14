@@ -1,6 +1,6 @@
 ---
 name: follow-builders
-description: AI builders digest — monitors top AI builders on X and YouTube podcasts, remixes their content into digestible summaries. Use when the user wants AI industry insights, builder updates, or invokes /ai. No API keys or dependencies required — all content is fetched from a central feed.
+description: AI builders digest — monitors top AI builders on X and official AI blogs, remixes their content into digestible summaries. Use when the user wants AI industry insights, builder updates, or invokes /ai. No API keys or dependencies required — all content is fetched from a central feed.
 ---
 
 # Follow Builders, Not Influencers
@@ -12,7 +12,7 @@ digestible summaries of what they're saying.
 Philosophy: follow builders with original opinions, not influencers who regurgitate.
 
 **No API keys or environment variables are required from users.** All content
-(X/Twitter posts and YouTube transcripts) is fetched centrally and served via
+(X/Twitter posts and official AI blog posts) is fetched centrally and served via
 a public feed. Users only need API keys if they choose Telegram or email delivery.
 
 ## Detecting Platform
@@ -43,11 +43,11 @@ If NOT, run the onboarding flow:
 Tell the user:
 
 "I'm your AI Builders Digest. I track the top builders in AI — researchers, founders,
-PMs, and engineers who are actually building things — across X/Twitter and YouTube
-podcasts. Every day (or week), I'll deliver you a curated summary of what they're
+PMs, and engineers who are actually building things — across X/Twitter and official
+AI company blogs. Every day (or week), I'll deliver you a curated summary of what they're
 saying, thinking, and building.
 
-I currently track [N] builders on X and [M] podcasts. The list is curated and
+I currently track [N] builders on X and [M] blogs. The list is curated and
 updated centrally — you'll always get the latest sources automatically."
 
 (Replace [N] and [M] with actual counts from default-sources.json)
@@ -141,17 +141,17 @@ ENVEOF
 
 Uncomment only the line they need. Open the file for them to paste the key.
 
-Tell the user: "All podcast and X/Twitter content is fetched for you automatically
+Tell the user: "All digest content is fetched for you automatically
 from a central feed — no API keys needed for that. You only need a key for
 [Telegram/email] delivery."
 
 ### Step 6: Show Sources
 
-Show the full list of default builders and podcasts being tracked.
+Show the full list of default builders and blogs being tracked.
 Read from `config/default-sources.json` and display as a clean list.
 
 Tell the user: "The source list is curated and updated centrally. You'll
-automatically get the latest builders and podcasts without doing anything."
+automatically get the latest builders and blogs without doing anything."
 
 ### Step 7: Configuration Reminder
 
@@ -323,10 +323,10 @@ cd ${CLAUDE_SKILL_DIR}/scripts && node prepare-digest.js 2>/dev/null
 
 The script outputs a single JSON blob with everything you need:
 - `config` — user's language and delivery preferences
-- `podcasts` — podcast episodes with full transcripts
 - `x` — builders with their recent tweets (text, URLs, bios)
+- `blogs` — official AI blog posts with titles, URLs, and content
 - `prompts` — the remix instructions to follow
-- `stats` — counts of episodes and tweets
+- `stats` — counts of blog posts and tweets
 - `errors` — non-fatal issues (IGNORE these)
 
 If the script fails entirely (no JSON output), tell the user to check their
@@ -334,7 +334,7 @@ internet connection. Otherwise, use whatever content is in the JSON.
 
 ### Step 3: Check for content
 
-If `stats.podcastEpisodes` is 0 AND `stats.xBuilders` is 0, tell the user:
+If `stats.blogPosts` is 0 AND `stats.xBuilders` is 0, tell the user:
 "No new updates from your builders today. Check back tomorrow!" Then stop.
 
 ### Step 4: Remix content
@@ -344,8 +344,8 @@ from the web, visit any URLs, or call any APIs. Everything is in the JSON.
 
 Read the prompts from the `prompts` field in the JSON:
 - `prompts.digest_intro` — overall framing rules
-- `prompts.summarize_podcast` — how to remix podcast transcripts
 - `prompts.summarize_tweets` — how to remix tweets
+- `prompts.summarize_blogs` — how to remix blog posts
 - `prompts.translate` — how to translate to Chinese
 
 **Tweets (process first):** The `x` array has builders with tweets. Process one at a time:
@@ -353,9 +353,9 @@ Read the prompts from the `prompts` field in the JSON:
 2. Summarize their `tweets` using `prompts.summarize_tweets`
 3. Every tweet MUST include its `url` from the JSON
 
-**Podcast (process second):** The `podcasts` array has at most 1 episode. If present:
-1. Summarize its `transcript` using `prompts.summarize_podcast`
-2. Use `name`, `title`, and `url` from the JSON object — NOT from the transcript
+**Blogs (process second):** The `blogs` array has official AI blog posts. If present:
+1. Summarize each post using `prompts.summarize_blogs`
+2. Use `name`, `title`, `author`, and `url` from the JSON object
 
 Assemble the digest following `prompts.digest_intro`.
 
@@ -372,7 +372,7 @@ Read `config.language` from the JSON:
 - **"zh":** Entire digest in Chinese. Follow `prompts.translate`.
 - **"bilingual":** Interleave English and Chinese **paragraph by paragraph**.
   For each builder's tweet summary: English version, then Chinese translation
-  directly below, then the next builder. For the podcast: English summary,
+  directly below, then the next builder. For each blog post: English summary,
   then Chinese translation directly below. Like this:
 
   ```
@@ -444,7 +444,7 @@ cp ${CLAUDE_SKILL_DIR}/prompts/<filename>.md ~/.follow-builders/prompts/<filenam
 
 Then edit `~/.follow-builders/prompts/<filename>.md` with the user's requested changes.
 
-- "Make summaries shorter/longer" → Edit `summarize-podcast.md` or `summarize-tweets.md`
+- "Make summaries shorter/longer" → Edit `summarize-tweets.md` or `summarize-blogs.md`
 - "Focus more on [X]" → Edit the relevant prompt file
 - "Change the tone to [X]" → Edit the relevant prompt file
 - "Reset to default" → Delete the file from `~/.follow-builders/prompts/`

@@ -53,7 +53,6 @@ Skill 使用纯文本 prompt 文件来控制内容的摘要方式。你可以通
 
 **直接编辑（高级用户）：**
 编辑 `prompts/` 文件夹中的文件：
-- `summarize-podcast.md` — 播客节目的摘要方式
 - `summarize-tweets.md` — X/Twitter 帖子的摘要方式
 - `summarize-blogs.md` — 博客文章的摘要方式
 - `digest-intro.md` — 整体摘要的格式和语气
@@ -62,13 +61,6 @@ Skill 使用纯文本 prompt 文件来控制内容的摘要方式。你可以通
 这些都是纯文本指令，不是代码。修改后下次推送即生效。
 
 ## 默认信息源
-
-### 播客（5个）
-- [Latent Space](https://www.youtube.com/@LatentSpacePod)
-- [Training Data](https://www.youtube.com/playlist?list=PLOhHNjZItNnMm5tdW61JpnyxeYH5NDDx8)
-- [No Priors](https://www.youtube.com/@NoPriorsPodcast)
-- [Unsupervised Learning](https://www.youtube.com/@RedpointAI)
-- [Data Driven NYC](https://www.youtube.com/@DataDrivenNYC)
 
 ### X 上的 AI 建造者（26位）
 [Andrej Karpathy](https://x.com/karpathy), [Swyx](https://x.com/swyx), [Josh Woodward](https://x.com/joshwoodward), [Kevin Weil](https://x.com/kevinweil), [Peter Yang](https://x.com/petergyang), [Nan Yu](https://x.com/thenanyu), [Madhu Guru](https://x.com/realmadhuguru), [Amanda Askell](https://x.com/AmandaAskell), [Cat Wu](https://x.com/_catwu), [Thariq](https://x.com/trq212), [Google Labs](https://x.com/GoogleLabs), [Amjad Masad](https://x.com/amasad), [Guillermo Rauch](https://x.com/rauchg), [Alex Albert](https://x.com/alexalbert__), [Aaron Levie](https://x.com/levie), [Ryo Lu](https://x.com/ryolu_), [Garry Tan](https://x.com/garrytan), [Matt Turck](https://x.com/mattturck), [Zara Zhang](https://x.com/zarazhangrui), [Nikunj Kothari](https://x.com/nikunj), [Peter Steinberger](https://x.com/steipete), [Dan Shipper](https://x.com/danshipper), [Aditya Agarwal](https://x.com/adityaag), [Sam Altman](https://x.com/sama), [Claude](https://x.com/claudeai), [Freda Duan](https://x.com/fredaduan)
