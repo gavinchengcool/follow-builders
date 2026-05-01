@@ -1,10 +1,8 @@
 {
   "seenTweets": {},
   "seenArticles": {
-    "https://www.anthropic.com/engineering/april-23-postmortem": 1777015352802,
-    "https://claude.com/blog/connectors-for-everyday-life": 1777015353454,
-    "https://claude.com/blog/claude-managed-agents-memory": 1777015354018,
     "https://www.anthropic.com/engineering/managed-agents": 1777187602659,
-    "https://www.anthropic.com/engineering/claude-code-auto-mode": 1777363091370
+    "https://www.anthropic.com/engineering/claude-code-auto-mode": 1777363091370,
+    "https://claude.com/blog/claude-code-desktop-redesign": 1777622092123
   }
 }
