@@ -1,8 +1,6 @@
 {
   "seenTweets": {},
   "seenArticles": {
-    "https://www.anthropic.com/engineering/claude-code-auto-mode": 1778141287931,
-    "https://claude.com/blog/new-in-claude-managed-agents": 1778141288676,
     "https://www.anthropic.com/engineering/april-23-postmortem": 1778399419728,
     "https://claude.com/blog/connectors-for-everyday-life": 1778399420465,
     "https://claude.com/blog/claude-managed-agents-memory": 1778399421018,
