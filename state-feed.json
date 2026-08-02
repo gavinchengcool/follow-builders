@@ -3,6 +3,9 @@
   "seenArticles": {
     "https://www.anthropic.com/engineering/managed-agents": 1785142762685,
     "https://claude.com/blog/claude-for-foundation-models": 1785398399371,
-    "https://claude.com/blog/artifacts-in-claude-code": 1785570846690
+    "https://claude.com/blog/artifacts-in-claude-code": 1785570846690,
+    "https://www.anthropic.com/engineering/how-we-contain-claude": 1785657385253,
+    "https://www.anthropic.com/engineering/april-23-postmortem": 1785657385835,
+    "https://claude.com/blog/claude-managed-agents-updates": 1785657386602
   }
 }
