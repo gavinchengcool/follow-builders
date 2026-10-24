@@ -1,7 +1,4 @@
 {
   "seenTweets": {},
-  "seenArticles": {
-    "https://www.anthropic.com/engineering/how-we-contain-claude": 1792230269012,
-    "https://www.anthropic.com/engineering/april-23-postmortem": 1792230269623
-  }
+  "seenArticles": {}
 }
